@@ -6,14 +6,14 @@ package LambardDemo;
  * @time: 2019/12/209:39 下午
  **/
 public class LambarDemo {
-    
-    public static class PretendEat{
-        static void Peat(){
+
+    public static class PretendEat {
+        static void Peat() {
             System.out.println("假装我是eat");
         }
     }
 
-    void testEat(ActionEat ae){
+    private void testEat(ActionEat ae) {
         ae.eat();
     }
 
@@ -21,6 +21,7 @@ public class LambarDemo {
         new LambarDemo().testEat(PretendEat::Peat);
     }
 }
-interface ActionEat{
+
+interface ActionEat {
     void eat();
 }

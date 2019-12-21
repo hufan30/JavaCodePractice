@@ -1,6 +1,6 @@
 package EnumDemo;
 
-public enum  Size {
-    SMALL,LARGE;
+public enum Size {
+    SMALL, LARGE;
 
 }
