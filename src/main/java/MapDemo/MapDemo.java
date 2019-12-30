@@ -2,6 +2,7 @@ package MapDemo;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiConsumer;
 
 public class MapDemo implements BiConsumer {
@@ -40,12 +41,19 @@ public class MapDemo implements BiConsumer {
     public void mapIterator(){
 //        counts.iterator();
         counts.entrySet().iterator();
+        for(Integer each: counts.keySet()){
+            System.out.println("key: "+each);
+        }
+        for(Integer each:counts.values()){
+            System.out.println("valuse: "+each);
+        }
     }
 
     public static void main(String[] args) {
         MapDemo md = new MapDemo();
         md.forEachTest1();
         md.forEachTest2();
+        md.mapIterator();
     }
 
     @Override
