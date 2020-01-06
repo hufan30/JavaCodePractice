@@ -52,5 +52,13 @@ public enum Color {
         return null;
     }
 
+    /**
+     * 经过测试发现，在静态方法中可以直接调用Enum中的成员变量
+     * 说明其中都是static final的
+     */
+    public static void testEnumInStaticMethod(){
+        RED.getCode();
+    }
+
 
 }
