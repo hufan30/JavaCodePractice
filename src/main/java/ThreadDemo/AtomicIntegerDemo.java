@@ -1,6 +1,9 @@
 package ThreadDemo;
 
 import java.util.Random;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Future;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -16,6 +19,8 @@ public class AtomicIntegerDemo {
      * @param args
      */
     public static void main(String[] args) {
+        BlockingQueue<Future> queue = new LinkedBlockingQueue<>(10);
+
         AtomicInteger ai = new AtomicInteger();
 
         for (int i = 0; i < 10; i++) {
