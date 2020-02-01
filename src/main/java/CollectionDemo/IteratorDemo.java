@@ -28,6 +28,8 @@ public class IteratorDemo {
     public static void main(String[] args) {
         IteratorDemo id = new IteratorDemo();
         id.testIterator();
+        int test[] = new int[3];
+        int[] test2 = new int[3];
     }
 }
 

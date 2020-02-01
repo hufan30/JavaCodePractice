@@ -38,4 +38,8 @@ public class StFinDemo {
         System.out.println(stL);
         StFinDemo sf2 = new StFinDemo();
     }
+
+    public static class Inner{
+        static int i = 1; //static内部类中可以有static；
+    }
 }
