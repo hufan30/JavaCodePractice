@@ -25,6 +25,10 @@ public class MultiThreadWordCount1 {
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
+/*                    不能“打印一下异常，然后若无其事地继续程序，就好像什么都没发生过一样”。打印的异常很容易被忽略，
+                      这样做是给以后挖坑。在多线程的环境下尤其要注意，因为异常的抛出是违反直觉的。
+                      应该把其他线程中的异常收集到一起，最后检查异常，若有则抛出异常*/
+                    throw new RuntimeException(e);  //至少这样向上抛一个；
                 }
             }).start();
         }

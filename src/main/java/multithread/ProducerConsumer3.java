@@ -9,7 +9,6 @@ public class ProducerConsumer3 {
 
     public static void main(String[] args) throws InterruptedException {
 
-
         Producer producer = new Producer();
         Consumer consumer = new Consumer();
 
@@ -29,7 +28,7 @@ public class ProducerConsumer3 {
                 try {
                     que.put(num);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
             }
         }
@@ -43,7 +42,7 @@ public class ProducerConsumer3 {
                 try {
                     poll = (Integer) que.take();
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
                 System.out.println("Consuming " + poll);
             }
