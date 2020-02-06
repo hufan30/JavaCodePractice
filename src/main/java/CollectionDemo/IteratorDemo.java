@@ -28,8 +28,12 @@ public class IteratorDemo {
     public static void main(String[] args) {
         IteratorDemo id = new IteratorDemo();
         id.testIterator();
+
+/*        编译器应该将数组初始为什么呢？明显就有歧义了，为了避免这种有奇异的情况，Java的语法才这样规定。
+        换句话说，只有在没有指定初始值的时候，才能给出初始大小，这两个信息只能给出一个，比如：*/
         int test[] = new int[3];
         int[] test2 = new int[3];
+        int[] test23 = new int[]{12,3,3};
     }
 }
 
