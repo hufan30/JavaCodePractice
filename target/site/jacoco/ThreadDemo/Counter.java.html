@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Counter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JavaUpgrate</a> &gt; <a href="index.source.html" class="el_package">ThreadDemo</a> &gt; <span class="el_source">Counter.java</span></div><h1>Counter.java</h1><pre class="source lang-java linenums">package ThreadDemo;
+
+import java.util.concurrent.Executors;
+
+/**
+ * @description:
+ * @author: HuFan
+ * @time: 2020/1/1610:27 下午
+ **/
+
+<span class="nc" id="L11">public class Counter {</span>
+
+<span class="nc" id="L13">    private static int x = 0;</span>
+
+    // 计数方法
+//    public void count() {
+//        for (int i = 0; i &lt;= 10; i++) {
+//            x = x + i;
+//        }
+//        System.out.println(Thread.currentThread().getName() + &quot;--&quot; + x);
+//    }
+
+    public static void main(String[] args) {
+<span class="nc" id="L24">        int value = 0;</span>
+        // 定义线程实现接口
+<span class="nc" id="L26">        Runnable runnable = new Runnable() {</span>
+<span class="nc" id="L27">            Counter counter = new Counter();</span>
+
+            @Override
+            public void run() {
+//                counter.count();
+                try {
+<span class="nc" id="L33">                    Thread.sleep(200);</span>
+<span class="nc" id="L34">                } catch (InterruptedException e) {</span>
+<span class="nc" id="L35">                    e.printStackTrace();</span>
+<span class="nc" id="L36">                }</span>
+<span class="nc" id="L37">                x++;</span>
+<span class="nc" id="L38">                System.out.println(x);</span>
+
+//                value++;
+
+                // 这里就很奇怪了，为什么value会编译错误，而上面的x++就不报错；
+                //这里简要的谈谈自己的初步理解，因为static和定义的范围，首先需要注意的是x是定义在最外面类中的，而且是可以用static修饰的；
+                //但是类中方法，即使是static方法，比如这里的main方法，里面也是不允许用static修饰的；
+                //初步想的是static修饰的成员变量和成员方法的，这是相对最外面的本类来说的，所以static方面里面也不允许有static变量；
+                //注意说的是成员变量，你在方法中的变量，本身就是这个方法的局部变量了啊！！！！！
+                //这里的x本质上是一个全局的共享变量，而value是本方法，main方法中的局部变量；
+                //x已经是static，是全局的了，所以不会存在被提前销毁的顾虑；
+                //而value是在本方法中定义的，
+                //局部变量存在于栈帧的局部变量表中，一旦方法结束，栈帧被销毁，这个变量（这份数据）就不再存在，
+                // 但是匿名内部类中的value可能在栈帧销毁后继续存在（比如在这个例子中，匿名内部类被提交到了线程池中）。
+                //这里主要是因为对于方法中的变量本身就是这个方法的局部变量这个点的没有形成条件反射，还在考虑一个变量是怎么划分为全局变量和线程的局部变量的问题；
+<span class="nc" id="L53">            }</span>
+        };
+        // 启动10个线程
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        for (int i = 0; i &lt; 10; i++) {</span>
+<span class="nc" id="L57">            new Thread(runnable).start();</span>
+        }
+<span class="nc" id="L59">        System.out.println(&quot;last:&quot; + x);</span>
+<span class="nc" id="L60">    }</span>
+
+    public static void doSomething() {
+<span class="nc" id="L63">        int value = 0;</span>
+<span class="nc" id="L64">        Executors.newSingleThreadExecutor().submit(new Runnable() {</span>
+            @Override
+            public void run() {
+//                value++;
+<span class="nc" id="L68">                x++;</span>
+<span class="nc" id="L69">            }</span>
+        });
+<span class="nc" id="L71">    }</span>
+
+<span class="nc" id="L73">    public static class test {</span>
+
+    }
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

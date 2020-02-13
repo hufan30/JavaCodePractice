@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BlogController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JavaUpgrate</a> &gt; <a href="index.source.html" class="el_package">hcsp.controller</a> &gt; <span class="el_source">BlogController.java</span></div><h1>BlogController.java</h1><pre class="source lang-java linenums">package hcsp.controller;
+
+import hcsp.entity.*;
+import hcsp.service.BlogService;
+import hcsp.service.UserContext;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
+@Controller
+public class BlogController {
+    private final BlogService blogService;
+
+    @Autowired
+<span class="nc" id="L18">    public BlogController(BlogService blogService) {</span>
+<span class="nc" id="L19">        this.blogService = blogService;</span>
+<span class="nc" id="L20">    }</span>
+
+    @GetMapping(&quot;/blog&quot;)
+    @ResponseBody
+    public BlogListResult getBlogs(@RequestParam(&quot;page&quot;) Integer page, @RequestParam(value = &quot;userId&quot;, required = false) Integer userId) {
+<span class="nc bnc" id="L25" title="All 4 branches missed.">        if (page == null || page &lt; 0) {</span>
+<span class="nc" id="L26">            page = 1;</span>
+        }
+
+<span class="nc" id="L29">        return blogService.getBlogs(page, 10, userId);</span>
+    }
+
+    @GetMapping(&quot;/blog/{blogId}&quot;)
+    @ResponseBody
+    public BlogResult getBlog(@PathVariable(&quot;blogId&quot;) int blogId) {
+<span class="nc" id="L35">        return blogService.getBlogById(blogId);</span>
+    }
+
+    @PostMapping(&quot;/blog&quot;)
+    @ResponseBody
+    public BlogResult newBlog(@RequestBody Map&lt;String, String&gt; param) {
+        try {
+<span class="nc" id="L42">            return UserContext.getCurrentUser()</span>
+<span class="nc" id="L43">                    .map(user -&gt; blogService.insertBlog(fromParam(param, user)))</span>
+<span class="nc" id="L44">                    .orElse(BlogResult.failure(&quot;登录后才能操作&quot;));</span>
+<span class="nc" id="L45">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L46">            return BlogResult.failure(e);</span>
+        }
+    }
+
+    @PatchMapping(&quot;/blog/{blogId}&quot;)
+    @ResponseBody
+    public BlogResult updateBlog(@PathVariable(&quot;blogId&quot;) int blogId, @RequestBody Map&lt;String, String&gt; param) {
+        try {
+<span class="nc" id="L54">            return UserContext.getCurrentUser()</span>
+<span class="nc" id="L55">                    .map(user -&gt; blogService.updateBlog(blogId, fromParam(param, user)))</span>
+<span class="nc" id="L56">                    .orElse(BlogResult.failure(&quot;登录后才能操作&quot;));</span>
+<span class="nc" id="L57">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L58">            return BlogResult.failure(e);</span>
+        }
+    }
+
+    @DeleteMapping(&quot;/blog/{blogId}&quot;)
+    @ResponseBody
+    public Result deleteBlog(@PathVariable(&quot;blogId&quot;) int blogId) {
+        try {
+<span class="nc" id="L66">            return UserContext.getCurrentUser()</span>
+<span class="nc" id="L67">                    .map(user -&gt; blogService.deleteBlog(blogId, user))</span>
+<span class="nc" id="L68">                    .orElse(BlogResult.failure(&quot;登录后才能操作&quot;));</span>
+<span class="nc" id="L69">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L70">            return BlogResult.failure(e);</span>
+        }
+    }
+
+    private Blog fromParam(Map&lt;String, String&gt; params, User user) {
+<span class="nc" id="L75">        Blog blog = new Blog();</span>
+<span class="nc" id="L76">        String title = params.get(&quot;title&quot;);</span>
+<span class="nc" id="L77">        String content = params.get(&quot;content&quot;);</span>
+<span class="nc" id="L78">        String description = params.get(&quot;description&quot;);</span>
+
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        if (StringUtils.isBlank(description)) {</span>
+<span class="nc" id="L81">            description = content.substring(0, Math.min(content.length(), 10)) + &quot;...&quot;;</span>
+        }
+
+<span class="nc" id="L84">        blog.setTitle(title);</span>
+<span class="nc" id="L85">        blog.setContent(content);</span>
+<span class="nc" id="L86">        blog.setDescription(description);</span>
+<span class="nc" id="L87">        blog.setUser(user);</span>
+<span class="nc" id="L88">        return blog;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
