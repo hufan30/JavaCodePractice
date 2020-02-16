@@ -15,6 +15,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
@@ -25,6 +27,7 @@ import static org.mockito.Mockito.when;
  * @author: HuFan
  * @time: 2020/2/161:01 下午
  **/
+//@ExtendWith(SpringExtension.class)
 @ExtendWith(MockitoExtension.class)
 //@RunWith(MockitoJUnitRunner.class)
 //@SpringBootTest
