@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: hcsp.service.BlogService2Test
--------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.826 s - in hcsp.service.BlogService2Test

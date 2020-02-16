@@ -12,11 +12,11 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 public class Junit5ExtensionTest implements BeforeAllCallback, AfterAllCallback {
     @Override
     public void afterAll(ExtensionContext context) throws Exception {
-        System.out.println("After");
+        System.out.println("After Junit5ExtensionTest");
     }
 
     @Override
     public void beforeAll(ExtensionContext context) throws Exception {
-        System.out.println("Before");
+        System.out.println("Before Junit5ExtensionTest");
     }
 }
