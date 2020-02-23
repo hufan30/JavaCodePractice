@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SynchronizedDemo3.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JavaUpgrate</a> &gt; <a href="index.source.html" class="el_package">ThreadDemo</a> &gt; <span class="el_source">SynchronizedDemo3.java</span></div><h1>SynchronizedDemo3.java</h1><pre class="source lang-java linenums">package ThreadDemo;
+
+/**
+ * @description:
+ * @author: HuFan
+ * @time: 2020/1/39:18 下午
+ **/
+
+import java.util.concurrent.CountDownLatch;
+
+/**
+ * Created by sxb-gt on 2018/1/21.
+ * “主线程类”注意：该类并没有集成Thread。只是为了形象，才取的这个名字。
+ */
+<span class="nc" id="L15">public class SynchronizedDemo3 {</span>
+<span class="nc" id="L16">    private Integer i = 0;</span>
+    /** 线程计数器 **/
+    private CountDownLatch count;
+    public CountDownLatch getCount() {
+<span class="nc" id="L20">        return count;</span>
+    }
+    public void setCount(CountDownLatch count) {
+<span class="nc" id="L23">        this.count = count;</span>
+<span class="nc" id="L24">    }</span>
+    public  void add() {
+<span class="nc" id="L26">        System.out.println(&quot;线程名称：&quot; + Thread.currentThread().getName() + &quot;执行开始&quot;);</span>
+<span class="nc" id="L27">        synchronized(i) {</span>
+            try {
+<span class="nc" id="L29">                Thread.sleep(100);</span>
+<span class="nc" id="L30">            } catch (InterruptedException e) {</span>
+<span class="nc" id="L31">                e.printStackTrace();</span>
+<span class="nc" id="L32">            }</span>
+<span class="nc" id="L33">            i++;</span>
+<span class="nc" id="L34">            System.out.println(i);</span>
+<span class="nc" id="L35">        }</span>
+<span class="nc" id="L36">        System.out.println(&quot;线程名称：&quot; + Thread.currentThread().getName() + &quot;执行结束&quot;);</span>
+<span class="nc" id="L37">    }</span>
+
+    public static void main(String[] args) {
+<span class="nc" id="L40">        System.out.println(&quot;主线程执行开始&quot;);</span>
+<span class="nc" id="L41">        SynchronizedDemo3 mainThread = new SynchronizedDemo3();</span>
+<span class="nc" id="L42">        int length = 3;</span>
+<span class="nc" id="L43">        mainThread.setCount(new CountDownLatch(length));</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        for (int i = 0; i &lt; length; i++ ) {</span>
+<span class="nc" id="L45">            Thread thread = new AssistantThread(mainThread);</span>
+<span class="nc" id="L46">            thread.start();</span>
+        }
+        try {
+<span class="nc" id="L49">            mainThread.getCount().await();</span>
+<span class="nc" id="L50">        } catch (InterruptedException e) {</span>
+<span class="nc" id="L51">            e.printStackTrace();</span>
+<span class="nc" id="L52">        }</span>
+<span class="nc" id="L53">        System.out.println(&quot;i===&quot; + mainThread.i);</span>
+<span class="nc" id="L54">        System.out.println(&quot;主线程执行结束&quot;);</span>
+<span class="nc" id="L55">    }</span>
+}
+
+class AssistantThread extends Thread {
+    private SynchronizedDemo3 mainThread;
+
+<span class="nc" id="L61">    public AssistantThread(SynchronizedDemo3 mainThread) {</span>
+<span class="nc" id="L62">        this.mainThread = mainThread;</span>
+<span class="nc" id="L63">    }</span>
+
+    @Override
+    public void run() {
+<span class="nc" id="L67">        mainThread.add();</span>
+<span class="nc" id="L68">        mainThread.getCount().countDown();</span>
+<span class="nc" id="L69">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

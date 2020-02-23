@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProducerConsumer1.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JavaUpgrate</a> &gt; <a href="index.source.html" class="el_package">multithread</a> &gt; <span class="el_source">ProducerConsumer1.java</span></div><h1>ProducerConsumer1.java</h1><pre class="source lang-java linenums">package multithread;
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Random;
+
+<span class="nc" id="L7">public class ProducerConsumer1 {</span>
+    public static void main(String[] args) throws InterruptedException {
+
+<span class="fc" id="L10">        Queue&lt;Integer&gt; que = new LinkedList();</span>
+
+<span class="fc" id="L12">        Producer producer = new Producer(que);</span>
+<span class="fc" id="L13">        Consumer consumer = new Consumer(que);</span>
+
+
+<span class="fc" id="L16">        producer.start();</span>
+<span class="fc" id="L17">        consumer.start();</span>
+
+<span class="fc" id="L19">        producer.join();</span>
+<span class="fc" id="L20">        consumer.join();</span>
+<span class="fc" id="L21">    }</span>
+
+    public static class Producer extends Thread {
+        Queue que;
+
+<span class="fc" id="L26">        public Producer(Queue que) {</span>
+<span class="fc" id="L27">            this.que = que;</span>
+<span class="fc" id="L28">        }</span>
+
+        @Override
+        public void run() {
+<span class="fc bfc" id="L32" title="All 2 branches covered.">            for (int i = 0; i &lt;= 10; i++) {</span>
+<span class="fc" id="L33">                synchronized (que) {</span>
+                    try {
+<span class="fc bfc" id="L35" title="All 2 branches covered.">                        while (que.size() &gt; 0) {</span>
+<span class="fc" id="L36">                            que.wait();</span>
+                        }
+<span class="nc" id="L38">                    } catch (InterruptedException e) {</span>
+<span class="nc" id="L39">                        e.printStackTrace();</span>
+<span class="fc" id="L40">                    }</span>
+<span class="fc" id="L41">                    int num = new Random().nextInt();</span>
+<span class="fc" id="L42">                    System.out.println(&quot;Producing &quot; + num);</span>
+<span class="fc" id="L43">                    que.add(num);</span>
+<span class="fc" id="L44">                    que.notify();</span>
+<span class="fc" id="L45">                }</span>
+            }
+<span class="fc" id="L47">        }</span>
+    }
+
+    public static class Consumer extends Thread {
+        Queue que;
+
+<span class="fc" id="L53">        public Consumer(Queue que) {</span>
+<span class="fc" id="L54">            this.que = que;</span>
+<span class="fc" id="L55">        }</span>
+
+        @Override
+        public void run() {
+<span class="fc bfc" id="L59" title="All 2 branches covered.">            for (int i = 0; i &lt;= 10; i++) {</span>
+<span class="fc" id="L60">                synchronized (que) {</span>
+                    try {
+<span class="fc bfc" id="L62" title="All 2 branches covered.">                        while (que.isEmpty()) {</span>
+<span class="fc" id="L63">                            que.wait();</span>
+                        }
+<span class="nc" id="L65">                    } catch (InterruptedException e) {</span>
+<span class="nc" id="L66">                        e.printStackTrace();</span>
+<span class="fc" id="L67">                    }</span>
+<span class="fc" id="L68">                    Integer poll = (Integer) que.poll();</span>
+<span class="fc" id="L69">                    System.out.println(&quot;Consuming &quot; + poll);</span>
+<span class="fc" id="L70">                    que.notify();</span>
+<span class="fc" id="L71">                }</span>
+            }
+<span class="fc" id="L73">        }</span>
+    }
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

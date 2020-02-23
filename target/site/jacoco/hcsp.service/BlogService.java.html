@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BlogService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JavaUpgrate</a> &gt; <a href="index.source.html" class="el_package">hcsp.service</a> &gt; <span class="el_source">BlogService.java</span></div><h1>BlogService.java</h1><pre class="source lang-java linenums">package hcsp.service;
+
+import hcsp.dao.BlogDao;
+import hcsp.entity.Blog;
+import hcsp.entity.BlogListResult;
+import hcsp.entity.BlogResult;
+import hcsp.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
+
+@Service
+public class BlogService {
+    private BlogDao blogDao;
+    private Logger logger;//这里是为了单元测试而添加的
+
+    @Component
+<span class="nc" id="L21">    public static class Logger{</span>
+        public void error(String msg){
+<span class="nc" id="L23">            System.out.println(msg);</span>
+<span class="nc" id="L24">        }</span>
+    }
+
+    @Autowired
+<span class="fc" id="L28">    public BlogService(BlogDao blogDao) {</span>
+<span class="fc" id="L29">        this.blogDao = blogDao;</span>
+<span class="fc" id="L30">        this.logger = null;</span>
+<span class="fc" id="L31">    }</span>
+
+    /*
+    这是为了单元测试而添加的构造函数
+     */
+//    @Autowired
+<span class="fc" id="L37">    public BlogService(BlogDao blogDao,Logger logger){</span>
+<span class="fc" id="L38">        this.blogDao = blogDao;</span>
+<span class="fc" id="L39">        this.logger = logger;</span>
+<span class="fc" id="L40">    }</span>
+
+    public BlogListResult getBlogs(Integer page, Integer pageSize, Integer userId) {
+        try {
+<span class="fc" id="L44">            List&lt;Blog&gt; blogs = blogDao.getBlogs(page, pageSize, userId);</span>
+
+<span class="fc" id="L46">            int count = blogDao.count(userId);</span>
+
+            // count = 3 / pageSize = 2 / page = 2
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">            int pageCount = count % pageSize == 0 ? count / pageSize : count / pageSize + 1;</span>
+
+<span class="fc" id="L51">            return BlogListResult.success(blogs, count, page, pageCount);</span>
+<span class="fc" id="L52">        } catch (Exception e) {</span>
+//            logger.error(&quot;error&quot;);
+<span class="fc" id="L54">            logger.error(e.getMessage());</span>
+<span class="fc" id="L55">            return BlogListResult.failure(&quot;系统异常&quot;);</span>
+        }
+    }
+
+    public BlogResult getBlogById(int blogId) {
+        try {
+<span class="nc" id="L61">            return BlogResult.success(&quot;获取成功&quot;, blogDao.selectBlogById(blogId));</span>
+<span class="nc" id="L62">        } catch (Exception e) {</span>
+<span class="nc" id="L63">            return BlogResult.failure(e);</span>
+        }
+    }
+
+    public BlogResult insertBlog(Blog newBlog) {
+        try {
+<span class="nc" id="L69">            return BlogResult.success(&quot;创建成功&quot;, blogDao.insertBlog(newBlog));</span>
+<span class="nc" id="L70">        } catch (Exception e) {</span>
+<span class="nc" id="L71">            return BlogResult.failure(e);</span>
+        }
+    }
+
+    public BlogResult updateBlog(int blogId, Blog targetBlog) {
+<span class="nc" id="L76">        Blog blogInDb = blogDao.selectBlogById(blogId);</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        if (blogInDb == null) {</span>
+<span class="nc" id="L78">            return BlogResult.failure(&quot;博客不存在&quot;);</span>
+        }
+
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        if (!Objects.equals(blogId, blogInDb.getId())) {</span>
+<span class="nc" id="L82">            return BlogResult.failure(&quot;无法修改别人的博客&quot;);</span>
+        }
+        try {
+<span class="nc" id="L85">            targetBlog.setId(blogId);</span>
+<span class="nc" id="L86">            return BlogResult.success(&quot;修改成功&quot;, blogDao.updateBlog(targetBlog));</span>
+<span class="nc" id="L87">        } catch (Exception e) {</span>
+<span class="nc" id="L88">            return BlogResult.failure(e);</span>
+        }
+    }
+
+    public BlogResult deleteBlog(int blogId, User user) {
+<span class="nc" id="L93">        Blog blogInDb = blogDao.selectBlogById(blogId);</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        if (blogInDb == null) {</span>
+<span class="nc" id="L95">            return BlogResult.failure(&quot;博客不存在&quot;);</span>
+        }
+
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (!Objects.equals(user.getId(), blogInDb.getUserId())) {</span>
+<span class="nc" id="L99">            return BlogResult.failure(&quot;无法修改别人的博客&quot;);</span>
+        }
+
+        try {
+<span class="nc" id="L103">            blogDao.deleteBlog(blogId);</span>
+<span class="nc" id="L104">            return BlogResult.success(&quot;修改成功&quot;);</span>
+<span class="nc" id="L105">        } catch (Exception e) {</span>
+<span class="nc" id="L106">            return BlogResult.failure(e);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

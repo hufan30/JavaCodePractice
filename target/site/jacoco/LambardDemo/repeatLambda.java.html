@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>repeatLambda.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JavaUpgrate</a> &gt; <a href="index.source.html" class="el_package">LambardDemo</a> &gt; <span class="el_source">repeatLambda.java</span></div><h1>repeatLambda.java</h1><pre class="source lang-java linenums">package LambardDemo;
+
+import java.awt.event.ActionListener;
+
+/**
+ * @description:
+ * @author: HuFan
+ * @time: 2019/12/216:59 下午
+ **/
+<span class="nc" id="L10">public class repeatLambda {</span>
+    //这里lambda捕获的就是非参数的自由变量，注意finalI不是lambda表达式的参数，不是传参数传进去的，所以结合书上说的是要捕获这个变量，闭包的说法；
+    //或者说让其隐形的变成final变量；
+    //这样做的原因是因为外面变量有可能在lambda还没执行的时候，就已经销毁了，所以这里是编译器会检查
+    public static void repeat1(String text, int count) {
+<span class="nc bnc" id="L15" title="All 2 branches missed.">        for (int i = 0; i &lt; 5; i++) {</span>
+<span class="nc" id="L16">            int finalI = i;</span>
+<span class="nc" id="L17">            ActionListener listener = event -&gt; System.out.println(finalI + &quot;:&quot; + text);</span>
+//            finalI = 7;
+        }
+<span class="nc" id="L20">    }</span>
+
+    public static void repeat2(int n, Intcousumer intcousumer) {
+<span class="nc bnc" id="L23" title="All 2 branches missed.">        for (int i = 0; i &lt; n; i++) intcousumer.accept(i);</span>
+<span class="nc" id="L24">    }</span>
+
+    //注意这里lambda虽然和上面长得很像，但是这里不是捕获外部变量了，这里的i是lambda的参数，是变成了lambda自己的本地变量了
+    public static void main(String[] args) {
+<span class="nc" id="L28">        repeat2(10, i -&gt; System.out.println(i + &quot;:&quot;)</span>
+        );
+<span class="nc" id="L30">    }</span>
+}
+
+interface Intcousumer {
+    void accept(int value);
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MyThreadPools.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JavaUpgrate</a> &gt; <a href="index.source.html" class="el_package">multithread</a> &gt; <span class="el_source">MyThreadPools.java</span></div><h1>MyThreadPools.java</h1><pre class="source lang-java linenums">package multithread;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+<span class="nc" id="L8">public class MyThreadPools {</span>
+    // 创建一个线程池，满足以下要求：
+    // 同时最多有10个任务在执行
+    // 任务等待队列大小为20，如果超过20继续往该线程池中提交任务，这些任务会被悄悄丢弃
+    // 线程的名字为&quot;MyThread&quot;
+    public static ExecutorService myThreadPool() {
+<span class="fc" id="L14">        return new ThreadPoolExecutor(10, 10, 60,</span>
+                TimeUnit.SECONDS, new LinkedBlockingQueue&lt;&gt;(20),
+<span class="fc" id="L16">                (runnable) -&gt; new Thread(runnable, &quot;MyThread&quot;), new ThreadPoolExecutor.DiscardPolicy());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
