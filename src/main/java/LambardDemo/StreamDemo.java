@@ -29,11 +29,12 @@ public class StreamDemo {
                 }
             }
         }
+        map.entrySet();
 
         /**
          * java8之后可以考虑流处理
          */
-        list.stream().filter(word -> !word.isEmpty()).filter(word -> Character.isUpperCase(word.charAt(0)))
+        Map<String, Long> collect1 = list.stream().filter(word -> !word.isEmpty()).filter(word -> Character.isUpperCase(word.charAt(0)))
                 .collect(Collectors.groupingBy(x -> x, Collectors.counting()));
 
         Map<String, Long> collect = list.stream().map(x -> x.split("//s"))
