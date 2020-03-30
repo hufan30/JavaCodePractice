@@ -16,10 +16,10 @@ import java.sql.SQLException;
  **/
 public class ClassLoader1 {
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, SQLException {
-        Class c1 = Problem1.class;
+//        Class c1 = Problem1.class;
         Class c2 = new myClassLoader().loadClass("stream.Problem1");
         Object o = c2.getConstructor().newInstance();
-//        Problem1 p1 = (Problem1)o; //这里会报无法cast的异常，这是因为类名+classloader才是唯一确定一个实例的根据；
+        Problem1 p1 = (Problem1)o; //这里会报无法cast的异常，这是因为类名+classloader才是唯一确定一个实例的根据；
         System.out.println();
 
         ClassLoader c3 = ClassLoader1.class.getClassLoader();
