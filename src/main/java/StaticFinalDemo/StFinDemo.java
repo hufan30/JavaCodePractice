@@ -37,9 +37,32 @@ public class StFinDemo {
         stfinL.add(1);
         System.out.println(stL);
         StFinDemo sf2 = new StFinDemo();
+
+        sf1.getStfinL();
+
+
+        //定义A类对象
+        A a = new A();
+
+        //通过对象调用静态方法
+        a.func();
+
+
+        //通过类调用静态方法
+        A.func();
+
     }
 
     public static class Inner{
         static int i = 1; //static内部类中可以有static；
+    }
+
+
+}
+
+class A {
+    //A类的定义的静态方法
+    public static void func() {
+        System.out.println("func()");
     }
 }

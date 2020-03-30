@@ -26,7 +26,7 @@ public class AuthController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
 
-    @Autowired
+//    @Autowired
     public AuthController(UserService userService,
                           AuthenticationManager authenticationManager) {
         this.userService = userService;
