@@ -1,17 +1,23 @@
 package SpringMVCBootDemo.Controller;
 
 import SpringMVCBootDemo.Service.Service;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.method.annotation.RequestParamMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 
 import java.lang.annotation.*;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,7 +36,12 @@ public class Controller {
     }
 
     @RequestMapping("/hello")
-    public void hello(@RequestBody Map<String,Object> param){
+    public void hello(@RequestBody List<String> param) {
+        service.sayHello();
+    }
+
+    @RequestMapping("/hello2")
+    public void hello2(@myRequestBody List<String> param) {
         service.sayHello();
     }
 
@@ -50,12 +61,13 @@ public class Controller {
      * 又来一层，俄罗斯套娃，就需要WebMvcConfigurer中addaddArgumentResolvers方法；
      * 将自定义的方法参数解析器加进去；
      */
-    public static class HandlerMethodArgumentResolverDecorate implements HandlerMethodArgumentResolver{
+    public static class HandlerMethodArgumentResolverDecorate implements HandlerMethodArgumentResolver, ApplicationContextAware {
         private RequestResponseBodyMethodProcessor delegate;
+        private ApplicationContext context;
 
-        public HandlerMethodArgumentResolverDecorate(RequestResponseBodyMethodProcessor rp) {
-            delegate = rp;
-        }
+        //        public HandlerMethodArgumentResolverDecorate(RequestResponseBodyMethodProcessor rp) {
+//            delegate = rp;
+//        }
 
         @Override
         public boolean supportsParameter(MethodParameter parameter) {
@@ -64,11 +76,24 @@ public class Controller {
 
         @Override
         public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+            if (delegate == null) {
+                delegate = (RequestResponseBodyMethodProcessor) context.getBean(RequestMappingHandlerAdapter.class)
+                        .getArgumentResolvers()
+                        .stream()
+                        .filter(p -> p instanceof RequestResponseBodyMethodProcessor)
+                        .findFirst()
+                        .get();
+            }
             Object result = delegate.resolveArgument(parameter, mavContainer, webRequest, binderFactory);
-            if(parameter instanceof Map){
-                ((Map) parameter).put("TimeStamp", System.currentTimeMillis());
+            if (result instanceof List) {
+                ((List) result).add(System.currentTimeMillis());
             }
             return result;
+        }
+
+        @Override
+        public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+            this.context = applicationContext;
         }
     }
 
