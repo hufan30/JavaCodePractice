@@ -1,9 +1,11 @@
 package SpringMVCBootDemo.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 import java.util.List;
 
@@ -15,6 +17,9 @@ import java.util.List;
 @Configuration
 public class CustomWebMvcConfig implements WebMvcConfigurer {
 
+//    @Autowired
+//    RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
 //        RequestResponseBodyMethodProcessor handlerMethodArgumentResolver = (RequestResponseBodyMethodProcessor)process.getArgumentResolvers().stream()
@@ -25,8 +30,8 @@ public class CustomWebMvcConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public Controller.HandlerMethodArgumentResolverDecorate getHandlerMethodArgumentResolverDecorate(){
-        return new Controller.HandlerMethodArgumentResolverDecorate();
+    public HandlerMethodArgumentResolverDecorate getHandlerMethodArgumentResolverDecorate(){
+        return new HandlerMethodArgumentResolverDecorate();
     }
 }
 
