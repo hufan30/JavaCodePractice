@@ -1,24 +1,13 @@
 package SpringMVCBootDemo.Controller;
 
 import SpringMVCBootDemo.Service.Service;
-import org.springframework.beans.BeansException;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.support.WebDataBinderFactory;
-import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.method.annotation.RequestParamMethodArgumentResolver;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.method.support.ModelAndViewContainer;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
-import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 
 import java.lang.annotation.*;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @description:
@@ -29,10 +18,12 @@ import java.util.Map;
 @RequestMapping("/demo")
 public class Controller {
     private final Service service;
+    private SqlSessionFactory sqlSessionFactory;
 
     @Autowired
-    public Controller(Service service) {
+    public Controller(Service service, SqlSessionFactory sqlSessionFactory) {
         this.service = service;
+        this.sqlSessionFactory = sqlSessionFactory;
     }
 
     @RequestMapping("/hello")
