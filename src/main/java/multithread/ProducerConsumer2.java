@@ -16,15 +16,15 @@ public class ProducerConsumer2 {
         ReentrantLock reentrantLock = new ReentrantLock();
         Condition condition = reentrantLock.newCondition();
 
-        ProducerConsumer1.Producer producer = new ProducerConsumer1.Producer(que);
-        ProducerConsumer1.Consumer consumer = new ProducerConsumer1.Consumer(que);
+        ProducerConsumer2.Producer producer = new ProducerConsumer2.Producer(que);
+        ProducerConsumer2.Consumer consumer = new ProducerConsumer2.Consumer(que);
 
 
         producer.start();
         consumer.start();
 
-        producer.join();
-        consumer.join();
+//        producer.join();
+//        consumer.join();
     }
 
     public static class Producer extends Thread {

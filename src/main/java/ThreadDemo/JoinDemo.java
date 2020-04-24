@@ -14,7 +14,7 @@ public class JoinDemo extends Thread{
             previousThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally{}
+        } finally{}
         System.out.println("num:"+i);
     }
     public static void main(String[] args) {
