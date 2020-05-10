@@ -23,6 +23,7 @@ public class FirstConnect {
 
     public static void main(String[] args) throws SQLException {
         Connection conn = null;
+        //statement执行sql的对象
         Statement stmt = null;
         try {
             // 注册 JDBC 驱动
