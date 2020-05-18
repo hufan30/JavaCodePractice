@@ -38,15 +38,20 @@ public class BaseDao<T> {
 
         //拼接sql语句，表名直接用POJO的类名
         //所以创建表时，请注意写成User，而不是t_user
-        String sql = "insert into "
-                + beanClass.getSimpleName() + " values(";
+/*        StringBuffer sqlbuffer = new StringBuffer("insert into "
+                + beanClass.getSimpleName() + " values(");*/
+//        拼接sql语句，【表名从User类Table注解中获取】
+        StringBuffer sqlbuffer =new StringBuffer( "insert into "
+                + beanClass.getAnnotation(Table.class).value()
+                + " values(");
         for (int i = 0; i < declaredFields.length; i++) {
-            sql += "?";
+            sqlbuffer .append( "?");
             if (i < declaredFields.length - 1) {
-                sql += ",";
+                sqlbuffer .append(",");
             }
         }
-        sql += ")";
+        sqlbuffer .append(")");
+        String sql = sqlbuffer.toString();
 
         //获得bean字段的值（要插入的记录）
         ArrayList<Object> paramList = new ArrayList<>();
