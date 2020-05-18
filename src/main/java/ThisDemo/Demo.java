@@ -15,8 +15,17 @@ public class Demo {
     }
 
 }
+class Granda {
+    public Granda(){
+        /**
+         * 即使是构造器调用向上传递到grandpa，打印出来的还是son;
+         * 这里涉及到this的传递，一直构造器super向上传递的this是son的；
+         */
+        System.out.println(this.getClass().getName());
+    }
+}
 
-class Father{
+class Father extends Granda{
     /**
      * 父类构造器
      */
