@@ -20,14 +20,15 @@ public class GetAnnoationDemo {
             System.out.println(a);
         }
         //@AnnotationDemo.Annoation1(value=db_student)
-        System.out.println("------------------------");
+        System.out.println("-----------next show student annotation1.value-------------");
 
 
         //但是我们希望获得的是其中的value
         Annotation1 c1Annotation = (Annotation1)c1.getAnnotation(Annotation1.class);
         System.out.println(c1Annotation);
         System.out.println(c1Annotation.value());//这样就能拿到其中的value；
-        System.out.println("------------------------");
+        System.out.println("-------------next show student annotation2.field-----------");
+
 
         //拿到filed上面的注解
         Field id = c1.getDeclaredField("id");
@@ -35,12 +36,12 @@ public class GetAnnoationDemo {
         for(Annotation a:idAnnotations){
             System.out.println(a);
         }
+        System.out.println("-------------next show student annotation id inside value-----------");
         //拿到注解里面的具体值；
         Annotation2 idAnnotation = id.getAnnotation(Annotation2.class);
         System.out.println(idAnnotation.colName());
-        System.out.println(idAnnotation.length());
         System.out.println(idAnnotation.type());
-
+        System.out.println(idAnnotation.length());
     }
 }
 
@@ -86,7 +87,7 @@ class student{
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @interface Annotation1{
-    String value();
+    String value() default "this is default value";
 }
 
 @Target(ElementType.FIELD)
