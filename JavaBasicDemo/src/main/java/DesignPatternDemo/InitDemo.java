@@ -11,6 +11,8 @@ public class InitDemo {
     private InitDemo() {
     }
 
+    public static class InnerTest{} //静态内部类，才能在main方法里new
+
     public static InitDemo getInitDemo() {
         return initDemo;
     }

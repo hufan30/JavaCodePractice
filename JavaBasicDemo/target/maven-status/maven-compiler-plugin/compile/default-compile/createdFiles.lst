@@ -170,6 +170,7 @@ ProxyDemo/JDKProxyDemo.class
 DesignPatternDemo/Calcultor$NumExpression.class
 ClassLoaderDemo/MyApp.class
 AnnotationDemo/GetAnnoationDemo.class
+DesignPatternDemo/InitDemo$InnerTest.class
 multithread/ProducerConsumer1$Consumer.class
 CollectionDemo/IteratorDemo.class
 hcsp/apo/AopController.class
