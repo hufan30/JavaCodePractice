@@ -32,11 +32,18 @@ public class StFinDemo {
 
     public static void main(String[] args) {
         StFinDemo sf1 = new StFinDemo();
+        StFinDemo sf2 = new StFinDemo();
+        //static,final对象作为arraylist都能添加
         sf1.finL.add(1);
         setStL(1);
         stfinL.add(1);
         System.out.println(stL);
-        StFinDemo sf2 = new StFinDemo();
+
+        //static对象能直接调用，能修改地址，指向新的内存区；
+        stL = new ArrayList<>();
+        //final对象需要在对象下引用，不能指向新的；
+//        sf1.finL = new ArrayList<>();
+
 
         sf1.getStfinL();
 
