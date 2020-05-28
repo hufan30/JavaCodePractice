@@ -1,6 +1,10 @@
 package JDBCDemo.Base2JdbcUtils.DAO;
 
+import JDBCDemo.Base2JdbcUtils.Exception.DaoException;
 import JDBCDemo.Base2JdbcUtils.POJO.User;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * 从这里开始，使用了模板方法，抽取了AbstractDao之后，明显感觉到有源代码的味道了；
@@ -32,12 +36,42 @@ public class UserDAOImlAbstract extends AbstractDao implements UserDao {
         Object[] args = new Object[]{user.getId()};
         return super.update(sql, args);
     }
-    //待实现
-    public User getUser(int Id) {
-        return null;
+
+    /**
+     * 下面开始是第二阶段的，模板类中有必须子类实现的方法；
+     * rowMapper；因为只有子类知道RowSet或者说User，Student的具体映射规则；
+     * 没法抽取到父类公用；
+     * 但是确实需要一个父类的公用abstract方法；
+     */
+
+    //查询
+    public User getUser(int id) {
+        String sql = "select id, name, age, birthday from t_user where id=?";
+        Object[] args = new Object[]{id};
+        Object user = super.query(sql, args);
+        return (User) user;
     }
-    //待实现
+
+    //查询
     public User findUser(String name, int age) {
-        return null;
+        String sql = "select id, name, age, birthday from t_user where name=? and age=?";
+        Object[] args = new Object[]{name, age};
+        Object user = super.query(sql, args);
+        return (User) user;
+    }
+
+    //UserDaoImpl的结果集映射器
+    protected Object rowMapper(ResultSet rs) {
+        User user = null;
+        try {
+            user = new User();
+            user.setId(rs.getInt("id"));
+            user.setAge(rs.getInt("age"));
+            user.setName(rs.getString("name"));
+            user.setBirthday(rs.getDate("birthday"));
+        } catch (SQLException e) {
+            throw new DaoException("mapping error");
+        }
+        return user;
     }
 }
