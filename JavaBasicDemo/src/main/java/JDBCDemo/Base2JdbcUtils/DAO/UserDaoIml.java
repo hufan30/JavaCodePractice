@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class UserDaoIml implements UserDao {
     @Override
@@ -76,7 +77,7 @@ public class UserDaoIml implements UserDao {
             rs = ps.executeQuery();
             while (rs.next()) {
                 user = new User();
-                user.setId(rs.getInt("id"));
+                user.setId( rs.getInt("id"));
                 user.setAge(rs.getInt("age"));
                 user.setName(rs.getString("name"));
                 user.setBirthday(rs.getDate("birthday"));
@@ -85,6 +86,11 @@ public class UserDaoIml implements UserDao {
             JDBCUtils.free(rs, ps, conn);
         }
         return user;
+    }
+
+    @Override
+    public List<User> selectUsers(Integer age) {
+        return null;
     }
 
     public User getUser(int userId) throws SQLException {

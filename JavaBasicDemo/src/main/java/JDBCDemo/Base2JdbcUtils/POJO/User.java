@@ -1,38 +1,42 @@
 package JDBCDemo.Base2JdbcUtils.POJO;
 
 import java.sql.Date;
-import java.sql.ResultSet;
 
 public class User {
-    String name;
-    Integer age;
-    Integer id;
+    private int  id;
+    private String name;
+    private Integer age;
+    private Date birthday;
 
-    public String getName() {
-        return null;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public Date getBirthday() {
-        return null;
-    }
-
-    public int getAge() {
-        return 0;
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public int getId() {
-        return 0;
+        return id;
     }
 
-    public void setId(int id) {
-    }
-
-    public void setAge(int age) {
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public Date getBirthday() {
+        return birthday;
     }
 
     public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 }

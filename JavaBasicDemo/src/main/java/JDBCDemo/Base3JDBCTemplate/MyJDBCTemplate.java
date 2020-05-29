@@ -2,6 +2,7 @@ package JDBCDemo.Base3JDBCTemplate;
 
 import JDBCDemo.Base2JdbcUtils.Exception.DaoException;
 import JDBCDemo.Base2JdbcUtils.JDBCUtils;
+import JDBCDemo.Base4DaoFactory.JDBCUtils_DataSource;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ public class MyJDBCTemplate {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            conn = JDBCUtils.getConnection();
+            conn = JDBCUtils_DataSource.getConnection();
             // sql由调用者传入
             ps = conn.prepareStatement(sql);
             // 遍历设置模板参数
@@ -28,7 +29,7 @@ public class MyJDBCTemplate {
         } catch (SQLException e) {
             throw new DaoException(e.getMessage(), e);
         } finally {
-            JDBCUtils.free(rs, ps, conn);
+            JDBCUtils_DataSource.free(rs, ps, conn);
         }
     }
 
@@ -39,7 +40,7 @@ public class MyJDBCTemplate {
         ResultSet rs = null;
         List list = new ArrayList();
         try {
-            conn = JDBCUtils.getConnection();
+            conn = JDBCUtils_DataSource.getConnection();
             // sql由调用者传入
             ps = conn.prepareStatement(sql);
             // 遍历设置模板参数
@@ -56,7 +57,7 @@ public class MyJDBCTemplate {
         } catch (SQLException e) {
             throw new DaoException(e.getMessage(), e);
         } finally {
-            JDBCUtils.free(rs, ps, conn);
+            JDBCUtils_DataSource.free(rs, ps, conn);
         }
     }
 }

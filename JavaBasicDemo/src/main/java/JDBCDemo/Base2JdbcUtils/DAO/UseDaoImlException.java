@@ -5,6 +5,7 @@ import JDBCDemo.Base2JdbcUtils.JDBCUtils;
 import JDBCDemo.Base2JdbcUtils.POJO.User;
 
 import java.sql.*;
+import java.util.List;
 
 public class UseDaoImlException implements UserDao {
 
@@ -89,6 +90,11 @@ public class UseDaoImlException implements UserDao {
             JDBCUtils.free(rs, ps, conn);
         }
         return user;
+    }
+
+    @Override
+    public List<User> selectUsers(Integer age) {
+        return null;
     }
 
     public User getUser(int userId) {

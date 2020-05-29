@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserDaoImpl {
+public class UserDaoImpl_jdbctemplate {
     MyJDBCTemplate jdbcTemplate = new MyJDBCTemplate();
 
     //增

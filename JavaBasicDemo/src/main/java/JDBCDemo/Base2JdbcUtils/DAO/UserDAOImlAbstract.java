@@ -5,6 +5,7 @@ import JDBCDemo.Base2JdbcUtils.POJO.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * 从这里开始，使用了模板方法，抽取了AbstractDao之后，明显感觉到有源代码的味道了；
@@ -58,6 +59,11 @@ public class UserDAOImlAbstract extends AbstractDao implements UserDao {
         Object[] args = new Object[]{name, age};
         Object user = super.query(sql, args);
         return (User) user;
+    }
+
+    @Override
+    public List<User> selectUsers(Integer age) {
+        return null;
     }
 
     /**
