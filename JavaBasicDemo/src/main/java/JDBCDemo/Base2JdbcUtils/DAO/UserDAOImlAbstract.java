@@ -60,6 +60,11 @@ public class UserDAOImlAbstract extends AbstractDao implements UserDao {
         return (User) user;
     }
 
+    /**
+     * 因为映射规则只能由子类确定，所以这里实现父类当中的抽象方法
+     * @param rs
+     * @return
+     */
     //UserDaoImpl的结果集映射器
     protected Object rowMapper(ResultSet rs) {
         User user = null;
