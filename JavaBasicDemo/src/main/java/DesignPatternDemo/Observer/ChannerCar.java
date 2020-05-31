@@ -7,7 +7,7 @@ import java.util.*;
  * @date 2020/5/31 7:56 下午
  * @annotation 用于描述观察者模式，又称为发布订阅模式；
  */
-public class ChanerCar {
+public class ChannerCar {
     public static void main(String[] args) {
         EventBus eventBus = new EventBus();
         Car c1 = new Car(1, eventBus);
