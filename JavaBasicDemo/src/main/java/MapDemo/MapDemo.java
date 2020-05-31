@@ -27,6 +27,7 @@ public class MapDemo implements BiConsumer {
      * 从函数式接口的原始方式出发，接口当然是需要实现了，直接用当前类implements接口，然后
      * 覆写了抽象方法；
      */
+
     public void forEachTest2(){
         counts.forEach(this::accept);
     }
@@ -38,6 +39,7 @@ public class MapDemo implements BiConsumer {
      * 本质是set，散列是实现了iterator接口的；
      * map是映射，区分是不一样的
      */
+
     public void mapIterator(){
 //        counts.iterator();
         counts.entrySet().iterator();
