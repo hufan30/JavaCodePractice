@@ -27,11 +27,23 @@ class Radio {
         this.eventBus = eventBus;
     }
 
+    /**
+     * 这里开始体现，监听器和观察者模式了；
+     * 之前一直纠结的是为什么监听器能够知道那些事件发生了，监听器主动一直轮询去监听，太低效了；
+     * 实际的做法就应该是这样有一个中间件，然后事件发生后触发publish；
+     * @param channel
+     * @param message
+     */
     public void outputMessage(String channel, String message) {
         eventBus.publish(channel, message);
     }
 }
 
+/**
+ * 目前也有一种说法，说这个是被包装后的监听器对象；
+ * 某种程度上也有道理，因为EventBus里面维护的map或者其他；
+ * 反正都是listener，无需维护radio；
+ */
 class EventBus {
     Map<String, List<Listener>> listMap = new HashMap<>();
 
