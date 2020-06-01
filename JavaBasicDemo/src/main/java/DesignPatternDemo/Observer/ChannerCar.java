@@ -9,10 +9,10 @@ import java.util.*;
  */
 public class ChannerCar {
     public static void main(String[] args) {
-        EventBus eventBus = new EventBus();
-        Car c1 = new Car(1, eventBus);
-        Car c2 = new Car(2, eventBus);
-        Radio radio = new Radio(eventBus);
+        ListenerBus listenerBus = new ListenerBus();
+        Car c1 = new Car(1, listenerBus);
+        Car c2 = new Car(2, listenerBus);
+        Radio radio = new Radio(listenerBus);
         c1.turnOnRadio("交通广播");
         c2.turnOnRadio("交通广播");
         radio.outputMessage("交通广播", "下午堵车");
@@ -21,10 +21,10 @@ public class ChannerCar {
 }
 
 class Radio {
-    EventBus eventBus;
+    ListenerBus listenerBus;
 
-    public Radio(EventBus eventBus) {
-        this.eventBus = eventBus;
+    public Radio(ListenerBus listenerBus) {
+        this.listenerBus = listenerBus;
     }
 
     /**
@@ -35,7 +35,7 @@ class Radio {
      * @param message
      */
     public void outputMessage(String channel, String message) {
-        eventBus.publish(channel, message);
+        listenerBus.publish(channel, message);
     }
 }
 
@@ -43,8 +43,11 @@ class Radio {
  * 目前也有一种说法，说这个是被包装后的监听器对象；
  * 某种程度上也有道理，因为EventBus里面维护的map或者其他；
  * 反正都是listener，无需维护radio；
+ * 但是还是理解成中间件更合理，因为实际生产中，EventBus不是包装某一个Listener；
+ * 而是维护所有的Listener，从功能定位上还是倾向于中间件；
+ * 名字可以改改，改成ListenerBus更加直观
  */
-class EventBus {
+class ListenerBus {
     Map<String, List<Listener>> listMap = new HashMap<>();
 
     /**
@@ -69,15 +72,15 @@ interface Listener {
 
 class Car implements Listener {
     int id;
-    EventBus eventBus;
+    ListenerBus listenerBus;
 
-    public Car(int id, EventBus eventBus) {
+    public Car(int id, ListenerBus listenerBus) {
         this.id = id;
-        this.eventBus = eventBus;
+        this.listenerBus = listenerBus;
     }
 
     public void turnOnRadio(String channel) {
-        eventBus.subscribe(channel, this);
+        listenerBus.subscribe(channel, this);
     }
 
     @Override
