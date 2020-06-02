@@ -1,3 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 JavaCodePractice.iml
 /.idea/
+/MybatisDemo/Mybatis01/target/
+/JavaWebDemo/target/
+/JavaBasicDemo/target/
