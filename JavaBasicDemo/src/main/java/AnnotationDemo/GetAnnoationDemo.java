@@ -22,13 +22,11 @@ public class GetAnnoationDemo {
         //@AnnotationDemo.Annoation1(value=db_student)
         System.out.println("-----------next show student annotation1.value-------------");
 
-
         //但是我们希望获得的是其中的value
         Annotation1 c1Annotation = (Annotation1)c1.getAnnotation(Annotation1.class);
         System.out.println(c1Annotation);
         System.out.println(c1Annotation.value());//这样就能拿到其中的value；
         System.out.println("-------------next show student annotation2.field-----------");
-
 
         //拿到filed上面的注解
         Field id = c1.getDeclaredField("id");
