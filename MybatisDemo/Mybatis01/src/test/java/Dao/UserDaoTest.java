@@ -33,5 +33,21 @@ public class UserDaoTest {
         sqlSession.close();
     }
 
+    @Test
+    public void getUserbyIdTest(){
+        //第一步：获得SqlSession对象
+        try(SqlSession sqlSession = MybatisUtils.getSqlSession()) {
+            ;
+
+
+            //方式一：getMapper
+            UserDao userDao = sqlSession.getMapper(UserDao.class);
+//            List<User> userList = userDao.getUserList();
+            User userbyId = userDao.getUserbyId(2);
+            System.out.println(userbyId);
+        }
+
+    }
+
 
 }

@@ -4,8 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Dao.UserDao">
 
+    <!--select查询语句-->
     <select id="getUserList" resultType="pojo.User">
         select * from mybatis.user
+    </select>
+
+    <select id="getUserbyId" resultType="pojo.User" parameterType="int">
+        select * from mybatis.user where id = #{id}
     </select>
 
 </mapper>
