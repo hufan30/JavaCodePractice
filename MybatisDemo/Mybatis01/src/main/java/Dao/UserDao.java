@@ -13,4 +13,6 @@ public interface UserDao {
     List<User> getUserList();
 
     User getUserbyId(int id);
+
+    int addUser(User user);
 }
