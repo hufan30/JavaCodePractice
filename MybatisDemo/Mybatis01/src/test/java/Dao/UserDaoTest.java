@@ -57,5 +57,18 @@ public class UserDaoTest {
             sqlSession.commit();
         }
     }
+
+    @Test
+    public void updateUserTest(){
+        try(SqlSession sqlSession = MybatisUtils.getSqlSession()){
+            UserDao mapper = sqlSession.getMapper(UserDao.class);
+
+            int res = mapper.updateUser(new User(4, "hufanUpdate", "456Update"));
+
+            if(res>0) System.out.println("更新成功！");
+
+            sqlSession.commit();
+        }
+    }
 }
 
