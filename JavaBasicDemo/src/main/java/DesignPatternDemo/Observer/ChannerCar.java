@@ -9,13 +9,26 @@ import java.util.*;
  */
 public class ChannerCar {
     public static void main(String[] args) {
-        ListenerBus listenerBus = new ListenerBus();
-        Car c1 = new Car(1, listenerBus);
-        Car c2 = new Car(2, listenerBus);
-        Radio radio = new Radio(listenerBus);
-        c1.turnOnRadio("交通广播");
-        c2.turnOnRadio("交通广播");
-        radio.outputMessage("交通广播", "下午堵车");
+//        ListenerBus listenerBus = new ListenerBus();
+//        Car c1 = new Car(1, listenerBus);
+//        Car c2 = new Car(2, listenerBus);
+//        Radio radio = new Radio(listenerBus);
+//        c1.turnOnRadio("交通广播");
+//        c2.turnOnRadio("交通广播");
+//        radio.outputMessage("交通广播", "下午堵车");
+        StringBuilder s = new StringBuilder();
+        s.append(123456);
+        s.append(78910);
+        System.out.println(s.subSequence(3, 6));
+        s.length();
+        s.insert(0,"aaa");
+        s.replace(1,2,"ccc");
+        System.out.println(s.toString());
+        int[]  a1= new int[2];
+        int[][] aaa = new int[1][1];
+
+
+
 
     }
 }

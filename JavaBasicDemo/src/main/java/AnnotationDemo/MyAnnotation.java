@@ -12,8 +12,6 @@ import java.lang.annotation.Target;
  **/
 public class MyAnnotation {
 
-
-
     @annotationDemo
     public void test(){
         int[] test = new int[3];
