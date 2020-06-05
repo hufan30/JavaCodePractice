@@ -12,6 +12,7 @@
         <module>JavaWebDemo</module>
         <module>JavaBasicDemo</module>
         <module>MybatisDemo</module>
+        <module>SpringDemo</module>
     </modules>
 
 
