@@ -5,6 +5,7 @@ import org.junit.Test;
 import pojo.User;
 import utils.MybatisUtils;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -21,6 +22,23 @@ public class UserDaoTest {
         //方式一：getMapper
         UserDao userDao = sqlSession.getMapper(UserDao.class);
         List<User> userList = userDao.getUserList();
+
+        for (User user : userList) {
+            System.out.println(user);
+        }
+
+        //关闭SqlSession
+        sqlSession.close();
+    }
+
+    @Test
+    public void getUserLikeTest() {
+        //第一步：获得SqlSession对象
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+
+        //方式一：getMapper
+        UserDao userDao = sqlSession.getMapper(UserDao.class);
+        List<User> userList = userDao.getUserLike("李");
 
         for (User user : userList) {
             System.out.println(user);
@@ -67,6 +85,28 @@ public class UserDaoTest {
 
             if(res>0) System.out.println("更新成功！");
 
+            sqlSession.commit();
+        }
+    }
+
+    /**
+     * 这里开始使用map来注入参数
+     */
+    @Test
+    public void addUser2Test() {
+        try (SqlSession sqlSession = MybatisUtils.getSqlSession()) {
+            UserDao userDao = sqlSession.getMapper(UserDao.class);
+
+            HashMap<String, Object> userMap = new HashMap<>();
+            userMap.put("userid",5);
+            userMap.put("passWord","23333");
+
+            int res = userDao.addUser2(userMap);
+
+            if(res>0){
+                System.out.println("插入成功！");
+            }
+            //在没有这句之前，虽然也打印了插入成功，但是数据库里并没有进入数据；
             sqlSession.commit();
         }
     }

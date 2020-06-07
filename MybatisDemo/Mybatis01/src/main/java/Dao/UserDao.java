@@ -3,6 +3,7 @@ package Dao;
 import pojo.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author hufan
@@ -16,5 +17,9 @@ public interface UserDao {
 
     int addUser(User user);
 
+    int addUser2(Map<String,Object> map);
+
     int updateUser(User user);
+
+    List<User> getUserLike(String like);
 }
