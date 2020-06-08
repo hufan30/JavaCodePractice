@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!-- 在xml中描述类与类的配置信息 -->
+    <bean id="person" class="XML.Person">
+        <!-- property标签表示，让Spring通过setter方法注入-->
+        <property name="car" ref="car"></property>
+    </bean>
+
+    <!-- 在xml中描述类与类的配置信息 -->
+    <bean id="person2" class="XML.Person">
+        <!-- constructor-arg标签表示，让Spring通过构造方法注入-->
+        <constructor-arg ref="car"></constructor-arg>
+    </bean>
+
+
+    <bean id="car" class="XML.Car"></bean>
+
+
+</beans>
