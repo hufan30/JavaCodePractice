@@ -1,9 +1,14 @@
 package XML;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class Person {
 
 
     // Person依赖Car
+    @Autowired
     private Car car;
 
 
