@@ -9,27 +9,18 @@ import java.util.*;
  */
 public class ChannerCar {
     public static void main(String[] args) {
-//        ListenerBus listenerBus = new ListenerBus();
-//        Car c1 = new Car(1, listenerBus);
-//        Car c2 = new Car(2, listenerBus);
-//        Radio radio = new Radio(listenerBus);
-//        c1.turnOnRadio("交通广播");
-//        c2.turnOnRadio("交通广播");
-//        radio.outputMessage("交通广播", "下午堵车");
-        StringBuilder s = new StringBuilder();
-        s.append(123456);
-        s.append(78910);
-        System.out.println(s.subSequence(3, 6));
-        s.length();
-        s.insert(0,"aaa");
-        s.replace(1,2,"ccc");
-        System.out.println(s.toString());
-        int[]  a1= new int[2];
-        int[][] aaa = new int[1][1];
+        ListenerBus listenerBus = new ListenerBus();
+        Car c1 = new Car(1, listenerBus);
+        Car c2 = new Car(2, listenerBus);
+        planet planet = new planet(listenerBus);
+        Radio radio = new Radio(listenerBus);
 
+        c1.turnOnRadio("交通广播");
+        c2.turnOnRadio("交通广播");
+        planet.turnOnRadio("飞机广播");
 
-
-
+        radio.outputMessage("交通广播", "下午堵车");
+        radio.outputMessage("飞机广播","天气不错");
     }
 }
 
@@ -99,5 +90,22 @@ class Car implements Listener {
     @Override
     public void listenMessage(String message) {
         System.out.println(id + ":" + message);
+    }
+}
+
+class planet implements Listener{
+    ListenerBus listenerBus;
+
+    public planet(ListenerBus listenerBus) {
+        this.listenerBus = listenerBus;
+    }
+
+    public void turnOnRadio(String channel) {
+        listenerBus.subscribe(channel, this);
+    }
+
+    @Override
+    public void listenMessage(String message) {
+        System.out.println("我飞机也来听广播了："+message);
     }
 }
