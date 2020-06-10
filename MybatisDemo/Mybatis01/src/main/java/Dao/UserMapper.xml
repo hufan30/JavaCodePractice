@@ -2,19 +2,36 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Dao.UserDao">
+<mapper namespace="Dao.UserMapper">
+
+    <!--结果集映射-->
+    <resultMap id="UserMap" type="pojo.User">
+        <!--column数据库中的字段，property实体类中的属性-->
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="pwd" property="password"/>
+    </resultMap>
+
+    <!--//分页,同时注意，这里还使用了resultMap,先映射到一个结果集，再从结果集合映射到User-->
+    <select id="getUserByLimit" parameterType="map" resultMap="UserMap">
+    select * from  mybatis.user limit #{startIndex},#{pageSize}
+    </select>
 
     <!--select查询语句-->
-    <select id="getUserList" resultType="pojo.User">
+    <!--    <select id="getUserList" resultType="pojo.User">-->
+    <!--        select * from mybatis.user-->
+    <!--    </select>-->
+
+    <select id="getUserList" resultMap="UserMap">
         select * from mybatis.user
     </select>
 
     <!--select查询语句-->
-    <select id="getUserLike" resultType="pojo.User">
+    <select id="getUserLike" resultMap="UserMap">
         select * from mybatis.user where name like "%"#{value}"%"
     </select>
 
-    <select id="getUserbyId" resultType="pojo.User" parameterType="int">
+    <select id="getUserbyId" resultMap="UserMap" parameterType="_int">
         select * from mybatis.user where id = #{id}
     </select>
 

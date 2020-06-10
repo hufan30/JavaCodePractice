@@ -1,6 +1,5 @@
 package Dao;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -15,9 +14,26 @@ import java.util.List;
  * @date 2020/6/2 11:11 下午
  * @annotation
  */
-public class UserDaoTest {
+public class UserMapperTest {
 
-    static Logger logger = Logger.getLogger(UserDaoTest.class);
+    static Logger logger = Logger.getLogger(UserMapperTest.class);
+
+    @Test
+    public void getUserByLimitTest(){
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        map.put("startIndex",1);
+        map.put("pageSize",2);
+
+        List<User> userList =  mapper.getUserByLimit(map);
+        for (User user : userList) {
+            System.out.println(user);
+        }
+
+        sqlSession.close();
+    }
 
     @Test
     public void testLog4j(){
@@ -33,8 +49,8 @@ public class UserDaoTest {
 
         logger.info(sqlSession);
         //方式一：getMapper
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        List<User> userList = userDao.getUserList();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        List<User> userList = userMapper.getUserList();
 
         for (User user : userList) {
             System.out.println(user);
@@ -50,8 +66,8 @@ public class UserDaoTest {
         SqlSession sqlSession = MybatisUtils.getSqlSession();
 
         //方式一：getMapper
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        List<User> userList = userDao.getUserLike("李");
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        List<User> userList = userMapper.getUserLike("李");
 
         for (User user : userList) {
             System.out.println(user);
@@ -66,9 +82,9 @@ public class UserDaoTest {
         //第一步：获得SqlSession对象
         try (SqlSession sqlSession = MybatisUtils.getSqlSession()) {
             //方式一：getMapper
-            UserDao userDao = sqlSession.getMapper(UserDao.class);
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 //            List<User> userList = userDao.getUserList();
-            User userbyId = userDao.getUserbyId(2);
+            User userbyId = userMapper.getUserbyId(2);
             System.out.println(userbyId);
         }
 
@@ -77,9 +93,9 @@ public class UserDaoTest {
     @Test
     public void addUserTest() {
         try (SqlSession sqlSession = MybatisUtils.getSqlSession()) {
-            UserDao userDao = sqlSession.getMapper(UserDao.class);
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
-            int res = userDao.addUser(new User(4,"hufan","123"));
+            int res = userMapper.addUser(new User(4,"hufan","123"));
 
             if(res>0){
                 System.out.println("插入成功！");
@@ -92,7 +108,7 @@ public class UserDaoTest {
     @Test
     public void updateUserTest(){
         try(SqlSession sqlSession = MybatisUtils.getSqlSession()){
-            UserDao mapper = sqlSession.getMapper(UserDao.class);
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 
             int res = mapper.updateUser(new User(4, "hufanUpdate", "456Update"));
 
@@ -108,13 +124,13 @@ public class UserDaoTest {
     @Test
     public void addUser2Test() {
         try (SqlSession sqlSession = MybatisUtils.getSqlSession()) {
-            UserDao userDao = sqlSession.getMapper(UserDao.class);
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
             HashMap<String, Object> userMap = new HashMap<>();
             userMap.put("userid",5);
             userMap.put("passWord","23333");
 
-            int res = userDao.addUser2(userMap);
+            int res = userMapper.addUser2(userMap);
 
             if(res>0){
                 System.out.println("插入成功！");

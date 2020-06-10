@@ -10,6 +10,11 @@
         <setting name="logImpl" value="LOG4J"/>
     </settings>
 
+    <!--可以给实体类起别名-->
+    <typeAliases>
+        <typeAlias type="pojo.User" alias="User"/>
+    </typeAliases>
+
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -22,7 +27,8 @@
         </environment>
     </environments>
     <mappers>
-<!--        <mapper resource="org/mybatis/example/BlogMapper.xml"/>-->
-        <mapper resource="Dao/UserMapper.xml"/>
+<!--        <mapper resource="Dao/UserMapper.xml"/>-->
+<!--        下面这个是使用扫描模式，需要名称完全一致，UserMapper和UserMapper.xml-->
+        <package name="Dao"/>
     </mappers>
 </configuration>
