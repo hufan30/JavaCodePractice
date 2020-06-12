@@ -22,6 +22,9 @@ public class MyAspectJAutoProxyCreatorTest {
         //取出Calculator类型的实例，调用add方法
         Calculator calculator = (Calculator) applicationContext.getBean(Calculator.class);
         calculator.add(1, 2);
+
+        ConfigurtionDemo configurtionDemo = (ConfigurtionDemo) applicationContext.getBean("configurtionDemo");
+        configurtionDemo.test();
     }
 
 }
