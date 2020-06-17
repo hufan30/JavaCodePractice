@@ -8,10 +8,12 @@ import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @Aspect
 @Configuration
 @ComponentScan("com.AopDemo")
+@EnableAspectJAutoProxy(proxyTargetClass =false)
 public class testAop {
 
     @Autowired
@@ -19,7 +21,7 @@ public class testAop {
 
     @Before("execution(* manyAspects(..))")
     public void test(){
-        System.out.println("hello this is aop");
+        System.out.println("hello this is before aop");
     }
     @Around("execution(* manyAspects(..))")
     public void testAround(ProceedingJoinPoint joinPoint) throws Throwable {
