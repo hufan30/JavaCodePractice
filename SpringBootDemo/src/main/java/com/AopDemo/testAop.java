@@ -5,6 +5,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -28,5 +29,9 @@ public class testAop {
         System.out.println("before around");
         joinPoint.proceed();
         System.out.println("after aroud");
+    }
+    @Test
+    public void test2(){
+
     }
 }
