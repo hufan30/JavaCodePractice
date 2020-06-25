@@ -1,6 +1,5 @@
 package AnnotationDemo;
 
-import org.checkerframework.checker.lock.qual.ReleasesNoLocks;
 
 import java.lang.annotation.*;
 import java.lang.reflect.Field;

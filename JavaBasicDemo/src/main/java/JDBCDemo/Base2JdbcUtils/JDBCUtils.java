@@ -1,6 +1,6 @@
 package JDBCDemo.Base2JdbcUtils;
 
-import org.h2.util.JdbcUtils;
+import org.springframework.jdbc.support.JdbcUtils;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -31,12 +31,12 @@
         </if>
     </select>
 
-    <insert id="insertBlog" parameterType="hcsp.entity.Blog" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    <insert id="insertBlog" parameterType="com.hcsp.entity.Blog" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO blog (user_id, title, description, content, created_at, updated_at)
         VALUES (#{userId}, #{title}, #{description}, #{content}, now(), now())
     </insert>
 
-    <update id="updateBlog" parameterType="hcsp.entity.Blog">
+    <update id="updateBlog" parameterType="com.hcsp.entity.Blog">
         UPDATE blog
         SET title       = #{title},
             content     = #{content},
@@ -69,14 +69,14 @@
         WHERE id = #{id}
     </delete>
 
-    <resultMap id="blog" type="hcsp.entity.Blog">
+    <resultMap id="blog" type="com.hcsp.entity.Blog">
         <id property="id" column="blog_id"/>
         <result property="title" column="blog_title"/>
         <result property="description" column="blog_description"/>
         <result property="content" column="blog_content"/>
         <result property="updatedAt" column="blog_updated_at"/>
         <result property="createdAt" column="blog_created_at"/>
-        <association property="user" javaType="hcsp.entity.User">
+        <association property="user" javaType="com.hcsp.entity.User">
             <id property="id" column="user_id"/>
             <result property="username" column="user_username"/>
             <result property="avatar" column="user_avatar"/>

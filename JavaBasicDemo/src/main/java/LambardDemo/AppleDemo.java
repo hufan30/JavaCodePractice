@@ -1,9 +1,8 @@
 package LambardDemo;
 
-import org.checkerframework.checker.units.qual.A;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -14,7 +13,10 @@ import java.util.function.Function;
  **/
 public class AppleDemo {
     public static void main(String[] args) {
-
+        List<Apple> apples = new LinkedList<>();
+        apples.add(new Apple(3,"Red"));
+        AppleDemo appleDemo = new AppleDemo();
+        appleDemo.findRedApple3(apples);
     }
 
 
@@ -102,7 +104,7 @@ public class AppleDemo {
 
     public void testLambda(){
         int i = 0;
-        List<Apple> apples = Arrays.asList(new Apple());
+        List<Apple> apples = Arrays.asList(new Apple(1,"Red"));
         findApple2(apples,apple ->{
 //            i++;
         return  apple.color.equals("Red");});
@@ -122,4 +124,9 @@ public class AppleDemo {
 class Apple {
     int weight;
     String color;
+
+    public Apple(int weight, String color) {
+        this.weight = weight;
+        this.color = color;
+    }
 }
