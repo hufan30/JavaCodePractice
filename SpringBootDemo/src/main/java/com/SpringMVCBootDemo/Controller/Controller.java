@@ -1,7 +1,6 @@
 package com.SpringMVCBootDemo.Controller;
 
 import com.SpringMVCBootDemo.Service.Service;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +17,10 @@ import java.util.List;
 @RequestMapping("/demo")
 public class Controller {
     private final Service service;
-    private SqlSessionFactory sqlSessionFactory;
 
     @Autowired
-    public Controller(Service service, SqlSessionFactory sqlSessionFactory) {
+    public Controller(Service service) {
         this.service = service;
-        this.sqlSessionFactory = sqlSessionFactory;
     }
 
     @RequestMapping("/hello")
