@@ -57,6 +57,15 @@ class ArrayList implements Iterable {
     }
 }
 
+class LinkiedList implements Iterable {
+    Node node;
+
+    @Override
+    public Iterator iterator() {
+        return new LinkedListIterator(this.node);
+    }
+}
+
 class LinkedListIterator implements Iterator {
     Node head;
 
@@ -73,15 +82,6 @@ class LinkedListIterator implements Iterator {
     public Object next() {
         head = head.next;
         return head;
-    }
-}
-
-class LinkiedList implements Iterable {
-    Node node;
-
-    @Override
-    public Iterator iterator() {
-        return new LinkedListIterator(this.node);
     }
 }
 
