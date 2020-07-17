@@ -14,16 +14,17 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @Aspect
 @Configuration
 @ComponentScan("com.AopDemo")
-@EnableAspectJAutoProxy(proxyTargetClass =false)
+/**
+ * 这里的ComponectScan是为了test类用的，在启动类启动后，无需这行注释；
+ */
+//@EnableAspectJAutoProxy(proxyTargetClass =false)
 public class testAop {
-
-    @Autowired
-    testMethodAOp t;
 
     @Before("execution(* manyAspects(..))")
     public void test(){
         System.out.println("hello this is before aop");
     }
+
     @Around("execution(* manyAspects(..))")
     public void testAround(ProceedingJoinPoint joinPoint) throws Throwable {
         System.out.println("before around");
