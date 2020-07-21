@@ -21,5 +21,11 @@ public class WebServer {
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         String line = reader.readLine();
         System.out.println(line);
+        System.out.println("hello");
+
+    }
+
+    public void add(int i){
+        System.out.println(1+i);
     }
 }
