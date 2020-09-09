@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Demo1 {
 
@@ -48,4 +49,18 @@ public class Demo1 {
 class Couple {
     private Integer familyId;
     private String userName;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Couple couple = (Couple) o;
+        return familyId.equals(couple.familyId) &&
+                userName.equals(couple.userName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(familyId, userName);
+    }
 }
