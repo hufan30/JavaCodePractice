@@ -1,6 +1,9 @@
 package ThreadDemo;
 
 public class ThreadLocalDemo {
+
+    public ThreadLocal threadLocalA = new ThreadLocal();
+
     //1.定义threadlocal
     //2.写main方法，调用thread类
     //3.自定义thread类，覆盖run方法

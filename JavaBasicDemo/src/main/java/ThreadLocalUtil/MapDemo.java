@@ -1,13 +1,13 @@
-package MapDemo;
+package ThreadLocalUtil;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.BiConsumer;
 
 public class MapDemo implements BiConsumer {
 
     private static Map<Integer, Integer> counts = new HashMap();
+
     static {
         counts.put(1, 1);
         counts.put(2, 2);
@@ -16,10 +16,11 @@ public class MapDemo implements BiConsumer {
     /**
      * 测试forEach，顺便又练习了一下函数式接口的lambda的表达式
      */
-    public void forEachTest1(){
-        counts.forEach((k,v)->{
-            if(k.equals(1))
+    public void forEachTest1() {
+        counts.forEach((k, v) -> {
+            if (k.equals(1)) {
                 System.out.println("这是1");
+            }
         });
     }
 
@@ -28,7 +29,7 @@ public class MapDemo implements BiConsumer {
      * 覆写了抽象方法；
      */
 
-    public void forEachTest2(){
+    public void forEachTest2() {
         counts.forEach(this::accept);
     }
 
@@ -40,14 +41,14 @@ public class MapDemo implements BiConsumer {
      * map是映射，区分是不一样的
      */
 
-    public void mapIterator(){
+    public void mapIterator() {
 //        counts.iterator();
         counts.entrySet().iterator();
-        for(Integer each: counts.keySet()){
-            System.out.println("key: "+each);
+        for (Integer each : counts.keySet()) {
+            System.out.println("key: " + each);
         }
-        for(Integer each:counts.values()){
-            System.out.println("valuse: "+each);
+        for (Integer each : counts.values()) {
+            System.out.println("valuse: " + each);
         }
     }
 
