@@ -27,22 +27,22 @@ public class GenericDemo {
     }
 
     public static void print1(List<? extends String> list){
-        list.add(111);
-        list.add("111");
+//        list.add(111);
+//        list.add("111");
         Object o = list.get(0);
         System.out.println(o);
     }
 
     public static void print2(List<? super String> list){
-        list.add(111);
+//        list.add(111);
         list.add("111");
         Object o = list.get(0);
         System.out.println(o);
     }
 
     public static void print3(List<?> list){
-        list.add(111);
-        list.add("111");
+//        list.add(111);
+//        list.add("111");
         Object o = list.get(0);
         System.out.println(o);
     }

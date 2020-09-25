@@ -1,11 +1,13 @@
 package com.UtilsDemo;
 
 
+import com.MainDemo;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.util.ReflectionTestUtils;
 
 /**
@@ -14,6 +16,7 @@ import org.springframework.test.util.ReflectionTestUtils;
  * @annotation
  */
 @RunWith(MockitoJUnitRunner.class)
+//@SpringBootTest(classes = MainDemo.class)
 public class RefelctionDemoTest {
 
     @Spy
