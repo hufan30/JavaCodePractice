@@ -22,7 +22,7 @@ import java.util.List;
  *
  * 这里自定义的myRequestBody注解想要起作用，首先需要方法参数解析器来解析自定义的注解
  * 但是自定义来一个新的方法参数解析器，它怎么参与到Springboot框架呢？
- * 又来一层，俄罗斯套娃，就需要WebMvcConfigurer中addaddArgumentResolvers方法；
+ * 又来一层，俄罗斯套娃，就需要WebMvcConfigurer中addArgumentResolvers方法；
  * 将自定义的方法参数解析器加进去；
  */
 public class HandlerMethodArgumentResolverDecorate implements HandlerMethodArgumentResolver, ApplicationContextAware {
