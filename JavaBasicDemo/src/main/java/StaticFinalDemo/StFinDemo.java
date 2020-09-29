@@ -45,14 +45,14 @@ public class StFinDemo {
 //        sf1.finL = new ArrayList<>();
 
 
-        sf1.getStfinL();
+//        sf1.getStfinL();
 
 
         //定义A类对象
         A a = new A();
 
         //通过对象调用静态方法
-        a.func();
+//        a.func();
 
 
         //通过类调用静态方法
@@ -71,5 +71,17 @@ class A {
     //A类的定义的静态方法
     public static void func() {
         System.out.println("func()");
+    }
+}
+
+class single{
+    final List demo = new ArrayList();
+    static final List demo2 = new ArrayList();
+
+    public void test(){
+        single s1 = new single();
+
+        s1.demo.add(1);
+        demo2.add(1);
     }
 }
