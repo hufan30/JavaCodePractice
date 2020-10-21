@@ -11,7 +11,7 @@ public class TestDemo {
 
     /**
      * 这里主要是为了测试@RunWith和@SpringBootTest的配合
-     * 首先在使用Junit4的@Test
+     * 首先使用Junit4的@Test
      * 发现只注释@SpringBootTest没反应
      * 只注释@RunWith(SpringRunner.class)也只是启动容器环境，没有Spring的图标启动
      * 只有二者配合，才全部启动
