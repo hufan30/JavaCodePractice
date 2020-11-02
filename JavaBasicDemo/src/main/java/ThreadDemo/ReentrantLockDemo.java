@@ -25,5 +25,26 @@ public class ReentrantLockDemo {
         }
     }
 
+    /**
+     * 试验ReentrantLock中的NonfairSync.lock();
+     * @param args
+     */
+    public static void main(String[] args) {
+        Lock lock = new ReentrantLock();
+        new Thread(()->{
+            try{
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            lock.lock();
+        }).start();
+
+        lock.lock();
+    }
+
+    public void test(){
+    }
+
 
 }
