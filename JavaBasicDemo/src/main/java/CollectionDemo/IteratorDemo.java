@@ -1,16 +1,18 @@
 package CollectionDemo;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class IteratorDemo {
 
     Map m1 = new HashMap<>();
+    List a = new ArrayList<>();
+    Iterator iterator = a.iterator();
+    Iterator iterator2 = a.iterator();
 
     public IteratorDemo() {
         m1.put(1, 1);
         m1.put(2, 2);
+        Iterator iterator = a.iterator();
     }
 
     /**
