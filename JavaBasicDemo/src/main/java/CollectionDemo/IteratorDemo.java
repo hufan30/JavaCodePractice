@@ -36,6 +36,8 @@ public class IteratorDemo {
         int test[] = new int[3];
         int[] test2 = new int[3];
         int[] test23 = new int[]{12,3,3};
+
+        String a = "123";
     }
 }
 
