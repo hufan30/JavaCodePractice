@@ -29,7 +29,12 @@ public enum Color {
     }
 
 
-    Color(int code, String desc) { //加上public void 上面定义枚举会报错 The constructor Color(int, String) is undefined
+    /**
+     * 加上public void 上面定义枚举会报错 The constructor Color(int, String) is undefined
+     * @param code
+     * @param desc
+     */
+    Color(int code, String desc) {
         this.code = code;
         this.desc = desc;
 
