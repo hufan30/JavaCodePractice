@@ -2,6 +2,7 @@ package RedisDemo;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPubSub;
 
 import java.util.UUID;
 
@@ -54,18 +55,33 @@ class DistributedLock {
     String lock(Jedis jedis) {
         String uuid = UUID.randomUUID().toString();
 
-        try {
-            while (true) {
-                Long num = jedis.setnx("lock", uuid);
-                if (num == 1) {
-                    System.out.println("LOCK"+uuid);
-                    return uuid;
-                }
-                Thread.sleep(100);
+        while (true) {
+            Long num = jedis.setnx("lock", uuid);
+            if (num == 1) {
+                System.out.println("LOCK"+uuid);
+                return uuid;
             }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            init();
         }
+    }
+
+    void init(){
+        final Thread thread = new Thread(() -> {
+            final Jedis jedis = new Jedis();
+            jedis.subscribe(new JedisPubSub() {
+                @Override
+                public void onMessage(String channel, String message) {
+                    System.out.println(channel+message);
+                }
+            }, "DistributedLock");
+        });
+        thread.setDaemon(true);
+        thread.start();
     }
 
     void unlock(Jedis jedis,String uuid) {
@@ -75,6 +91,7 @@ class DistributedLock {
                 if (num.equals(uuid)) {
                     System.out.println("Unlock!");
                     jedis.del("lock");
+                    jedis.publish("DistributedLock", num);
                     return;
                 }
                 Thread.sleep(100);
