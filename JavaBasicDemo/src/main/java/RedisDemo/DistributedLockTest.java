@@ -32,6 +32,7 @@ public class DistributedLockTest {
                         key = "" + (Integer.parseInt(key) + 1);
                     }
                     jedis.set("key", key);
+                    System.out.println(key);
                     distributedLock.unlock(jedis,uuid);
                 }
             }).start();
@@ -58,7 +59,7 @@ class DistributedLock {
             while (true) {
                 Long num = jedis.setnx("lock", uuid);
                 if (num == 1) {
-                    System.out.println("LOCK"+uuid);
+//                    System.out.println("LOCK"+uuid);
                     return uuid;
                 }
                 Thread.sleep(100);
