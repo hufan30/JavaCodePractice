@@ -10,19 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
  * @author: HuFan
  * @time: 2020/3/2710:43 上午
  **/
-@org.springframework.stereotype.Service
 @RestController
 public class Service {
 
-    @Autowired
-    testMethodAOp t;
+//    @Autowired
+//    testMethodAOp t;
 
     public void sayHello() {
         System.out.println("hello");
     }
 
-    @RequestMapping("/testAop")
-    public void testAop() {
-        t.manyAspects();
-    }
+//    @RequestMapping("/testAop")
+//    public void testAop() {
+//        t.manyAspects();
+//    }
 }
