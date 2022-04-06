@@ -11,6 +11,7 @@ import java.util.List;
 public class StFinDemo {
     private static List<Integer> stL = new ArrayList<Integer>();
     private final List<Integer> finL = new ArrayList<Integer>();
+    private static final int tempA = 1;
     private static final List<Integer> stfinL = new ArrayList<>();
     String s = "hello";
 
@@ -54,13 +55,15 @@ public class StFinDemo {
         //通过对象调用静态方法
 //        a.func();
 
-
+        //也不能赋值改变final的基本类型；
+//        tempA =2;
+//        tempA = tempA +1;
         //通过类调用静态方法
         A.func();
 
     }
 
-    public static class Inner{
+    public static class Inner {
         static int i = 1; //static内部类中可以有static；
     }
 
@@ -74,11 +77,11 @@ class A {
     }
 }
 
-class single{
+class single {
     final List demo = new ArrayList();
     static final List demo2 = new ArrayList();
 
-    public void test(){
+    public void test() {
         single s1 = new single();
 
         s1.demo.add(1);
