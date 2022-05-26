@@ -75,6 +75,10 @@ class A {
     public static void func() {
         System.out.println("func()");
     }
+
+    public final void fund(){
+
+    }
 }
 
 class single {
