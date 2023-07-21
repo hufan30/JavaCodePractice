@@ -16,8 +16,7 @@ public class MidNightBoolean {
     public static boolean getBooleanByDay() {
         LocalDateTime oldDay = LocalDateTime.of(2023, 7, 1, 0, 0, 0);
         Duration between = Duration.between(oldDay, LocalDateTime.now());
-        long l = between.toDays();
-        return (l & 1) == 1;
+        return (between.toDays() & 1) == 1;
     }
 
 
